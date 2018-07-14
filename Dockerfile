@@ -5,6 +5,9 @@ EXPOSE 80
 # Fix debconf warnings upon build
 ARG DEBIAN_FRONTEND=noninteractive
 
+COPY ionCube.ini /usr/local/etc/php/conf.d
+COPY redis.ini /usr/local/etc/php/conf.d
+
 # Install selected extensions and other stuff
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
@@ -24,9 +27,6 @@ RUN curl 'https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86
 RUN pecl install redis-2.2.5 \
     && rm -rf /tmp/* 	
 
-COPY ionCube.ini /usr/local/etc/php/conf.d
-COPY redis.ini /usr/local/etc/php/conf.d	
-
 # Cleanup dev-packages and APT
 RUN apt-get remove --auto-remove \
 		libbz2-dev libpng-dev libicu-dev libmcrypt-dev libpq-dev librecode-dev \
@@ -34,5 +34,3 @@ RUN apt-get remove --auto-remove \
 	&& apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 WORKDIR "/var/www/html"	
-
-#RUN /etc/init.d/apache2 reload
