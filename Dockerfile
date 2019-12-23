@@ -1,23 +1,25 @@
 FROM php:apache
 
-RUN apt-get update && \
-    apt-get install -y \
+RUN apt update && \
+    apt install -y \
         git \
         zip \
         zlib1g-dev \
         libzip-dev \
         libicu-dev \
         g++ \
-    && docker-php-ext-install zip mysqli pdo_mysql intl
+        libxml2-dev\
+    && docker-php-ext-install zip mysqli pdo_mysql intl soap
 
 RUN pecl install -f xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini;
 
-RUN apt-get remove -y \
+RUN apt remove -y \
         zlib1g-dev \
         libzip-dev \
         libicu-dev \
-        g++
+        g++ \
+        libxml2-dev
 
 RUN rm -rf /var/lib/apt/lists/*
 
