@@ -12,7 +12,7 @@ RUN apt update && \
         libpng-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-png \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install zip mysqli pdo_mysql intl soap gd
 
 RUN pecl install -f xdebug \
