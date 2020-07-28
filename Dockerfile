@@ -16,7 +16,7 @@ RUN apt update && \
     && docker-php-ext-install zip mysqli pdo_mysql intl soap gd
 
 RUN pecl install -f xdebug \
-    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini;
+    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "memory_limit=256M" > /usr/local/etc/php/conf.d/memory.ini;
 
 RUN apt remove -y \
